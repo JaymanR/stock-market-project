@@ -1,5 +1,6 @@
 import pandas as pd
 import requests
+import yfinance as yf
 from bs4 import BeautifulSoup
 from io import StringIO
 from typing import Final
@@ -65,7 +66,27 @@ def download_symbols(path=SYMBOLS_PATH):
     except Exception as e:
         print(f"Error downloading symbols: {e}")
 
+def get_data(ticker: str):
+    """
+
+    :param ticker:
+    :return:
+    """
+    data = yf.Ticker(ticker)
+    return data
+
+def get_history(tickers: str, period: str):
+    """
+
+    :param tickers:
+    :param period:
+    :return:
+    """
+
+    history = yf.download(tickers, period = period)
+
+    return history
 
 if __name__ == "__main__":
     print()
-    download_symbols()
+    get_history("MSFT AAPL", "1mo")
